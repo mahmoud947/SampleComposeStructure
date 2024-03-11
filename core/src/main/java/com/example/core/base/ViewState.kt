@@ -1,4 +1,4 @@
-package com.example.jetpackcomposesample.core.base
+package com.example.core.base
 
 interface ViewState {
     val loading: Boolean
