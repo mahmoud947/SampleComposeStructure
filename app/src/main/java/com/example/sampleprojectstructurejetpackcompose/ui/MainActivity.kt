@@ -1,4 +1,4 @@
-package com.example.sampleprojectstructurejetpackcompose
+package com.example.sampleprojectstructurejetpackcompose.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

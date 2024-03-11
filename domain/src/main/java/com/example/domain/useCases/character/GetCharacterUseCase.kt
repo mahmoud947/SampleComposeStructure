@@ -1,4 +1,4 @@
-package com.example.domain.useCases
+package com.example.domain.useCases.character
 
 import com.example.core.base.BaseUseCase
 import com.example.domain.errors.ExceptionHandler
