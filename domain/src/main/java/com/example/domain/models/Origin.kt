@@ -1,9 +1,9 @@
-package com.example.data.datasource.remote.dtos.res
+package com.example.domain.models
 
 import androidx.annotation.Keep
 
 @Keep
-data class LocationDto(
+data class Origin(
     val name: String?,
     val url: String?
 )

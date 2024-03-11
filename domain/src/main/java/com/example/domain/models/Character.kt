@@ -1,18 +1,14 @@
-package com.example.data.datasource.remote.dtos.res
+package com.example.domain.models
 
-
-import androidx.annotation.Keep
-
-@Keep
-data class CharacterDto(
+data class Character(
     val created: String?,
     val episode: List<String?>?,
     val gender: String?,
     val id: Int?,
     val image: String?,
-    val location: LocationDto?,
+    val location: Location?,
     val name: String?,
-    val origin: OriginDto?,
+    val origin: Origin?,
     val species: String?,
     val status: String?,
     val type: String?,
