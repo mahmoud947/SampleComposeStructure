@@ -19,4 +19,8 @@ class CharacterRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun getCharacter(id: Int): Character {
+        return service.getCharacter(id = id).toDomain()
+    }
+
 }

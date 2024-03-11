@@ -3,8 +3,9 @@ package com.example.sampleprojectstructurejetpackcompose.di
 
 import com.example.domain.repositories.CharactersRepository
 
-import com.example.domain.useCases.character.CharacterUseCases
+import com.example.domain.useCases.character.CharactersUseCases
 import com.example.domain.useCases.character.GetCharacterUseCase
+import com.example.domain.useCases.character.GetCharactersUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -19,7 +20,8 @@ object UseCaseModule {
     @Singleton
     fun provideCharactersUseCase(
         repository: CharactersRepository
-    ): CharacterUseCases = CharacterUseCases(
+    ): CharactersUseCases = CharactersUseCases(
+        getCharactersUseCase = GetCharactersUseCase(charactersRepository = repository),
         getCharacterUseCase = GetCharacterUseCase(charactersRepository = repository)
     )
 }

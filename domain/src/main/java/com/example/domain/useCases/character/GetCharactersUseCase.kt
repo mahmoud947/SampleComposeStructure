@@ -9,14 +9,14 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 
-class GetCharacterUseCase constructor(
+class GetCharactersUseCase constructor(
     private val charactersRepository: CharactersRepository
-) : BaseUseCase<Int, Flow<Resource<Character?>>> {
-    override fun invoke(input: Int): Flow<Resource<Character?>> {
+) : BaseUseCase<Nothing?, Flow<Resource<List<Character>?>>> {
+    override fun invoke(input: Nothing?): Flow<Resource<List<Character>?>> {
         return flow {
             emit(Resource.Loading)
-            val result = charactersRepository.getCharacter(id = input)
-            emit(Resource.Success(result))
+            val result = charactersRepository.getCharacters()
+            emit(Resource.Success(result.results))
         }.catch {
             emit(ExceptionHandler.resolveError(it))
         }

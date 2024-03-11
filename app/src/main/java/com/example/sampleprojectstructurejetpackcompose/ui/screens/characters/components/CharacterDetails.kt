@@ -1,12 +1,12 @@
 package com.example.sampleprojectstructurejetpackcompose.ui.screens.characters.components
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
@@ -19,11 +19,27 @@ import coil.compose.rememberImagePainter
 import com.example.domain.models.Character
 
 @Composable
-fun CharacterDetails(character: Character) {
-    Column(modifier = Modifier.padding(16.dp)) {
-        Text(text = "Name: ${character.name}", style = MaterialTheme.typography.bodyLarge.copy(color = Color.White))
-        Text(text = "Status: ${character.status}", style = MaterialTheme.typography.bodyMedium.copy(color = Color.White))
-        Text(text = "Species: ${character.species}", style = MaterialTheme.typography.bodyMedium.copy(color = Color.White))
+fun CharacterDetails(
+    character: Character,
+    onClick: (id: Int?) -> Unit
+) {
+    Column(modifier = Modifier
+        .padding(16.dp)
+        .clickable {
+            onClick(character.id)
+        }) {
+        Text(
+            text = "Name: ${character.name}",
+            style = MaterialTheme.typography.bodyLarge.copy(color = Color.White)
+        )
+        Text(
+            text = "Status: ${character.status}",
+            style = MaterialTheme.typography.bodyMedium.copy(color = Color.White)
+        )
+        Text(
+            text = "Species: ${character.species}",
+            style = MaterialTheme.typography.bodyMedium.copy(color = Color.White)
+        )
 
         Spacer(modifier = Modifier.height(8.dp))
         Image(
@@ -32,10 +48,16 @@ fun CharacterDetails(character: Character) {
             modifier = Modifier.size(128.dp)
         )
         Spacer(modifier = Modifier.height(8.dp))
-        Text(text = "Episodes:", style = MaterialTheme.typography.headlineLarge.copy(color = Color.White))
+        Text(
+            text = "Episodes:",
+            style = MaterialTheme.typography.headlineLarge.copy(color = Color.White)
+        )
         LazyRow {
             items(character.episode.orEmpty()) { episode ->
-                Text(text = episode.orEmpty(), style = MaterialTheme.typography.bodySmall.copy(color = Color.White))
+                Text(
+                    text = episode.orEmpty(),
+                    style = MaterialTheme.typography.bodySmall.copy(color = Color.White)
+                )
             }
         }
     }

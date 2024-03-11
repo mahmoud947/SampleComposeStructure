@@ -11,19 +11,21 @@ import kotlinx.coroutines.flow.collectLatest
 import javax.inject.Inject
 
 @HiltViewModel
-class CharactersViewModel @Inject constructor(
+class CharacterDetailsViewModel @Inject constructor(
     private val characterUseCase: CharactersUseCases
-) : BaseViewModel<CharacterContract.Event, CharacterContract.State>() {
-    override fun setInitialState(): CharacterContract.State {
-        return CharacterContract.State(
+) : BaseViewModel<CharacterDetailsContract.Event, CharacterDetailsContract.State>() {
+    override fun setInitialState(): CharacterDetailsContract.State {
+        return CharacterDetailsContract.State(
             loading = false
         )
     }
 
 
-    override fun handleEvents(event: CharacterContract.Event) {
+    override fun handleEvents(event: CharacterDetailsContract.Event) {
         when (event) {
-            CharacterContract.Event.FetchCharacters -> getCharacters()
+            is CharacterDetailsContract.Event.FetchCharacterDetails -> getCharacterById(id = event.id)
+
+            else -> {}
         }
     }
 
@@ -31,19 +33,19 @@ class CharactersViewModel @Inject constructor(
         setState { copy(loading = false) }
         val message = ExceptionHandler.resolveError(exception).exception.message
             ?: "An unknown error occurred"
-        setEffect { CharacterContract.SideEffects.ShowErrorMessage(message) }
+        setEffect { CharacterDetailsContract.SideEffects.ShowErrorMessage(message) }
     }
 
 
-    private fun getCharacters() {
+    private fun getCharacterById(id:Int) {
         launchCoroutine(Dispatchers.IO) {
             setState { copy(loading = true) }
-            characterUseCase.getCharactersUseCase(null).collectLatest { resource ->
+            characterUseCase.getCharacterUseCase(id).collectLatest { resource ->
                 when (resource) {
                     is Resource.Error -> {
                         setState { copy(loading = false) }
                         setEffect {
-                            CharacterContract.SideEffects.ShowErrorMessage(
+                            CharacterDetailsContract.SideEffects.ShowErrorMessage(
                                 resource.exception.message
                                     ?: "An unknown error occurred"
                             )

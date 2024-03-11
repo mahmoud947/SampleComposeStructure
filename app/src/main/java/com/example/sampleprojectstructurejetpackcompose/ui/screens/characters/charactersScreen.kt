@@ -20,6 +20,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.sampleprojectstructurejetpackcompose.ui.navigation.Screen
 
 import com.example.sampleprojectstructurejetpackcompose.ui.screens.characters.components.CharacterDetails
 import com.example.sampleprojectstructurejetpackcompose.ui.shared.ScreenContent
@@ -27,10 +28,11 @@ import com.example.sampleprojectstructurejetpackcompose.ui.shared.ScreenContent
 @Composable
 fun CharactersScreen(
     viewModel: CharactersViewModel = hiltViewModel(),
-    navController: NavController = rememberNavController()
-) {
+    navController: NavController = rememberNavController(),
 
-   // StatusBarColor(color = Color.Transparent, darkTheme = true)
+    ) {
+
+    // StatusBarColor(color = Color.Transparent, darkTheme = true)
     val state by viewModel.viewState.collectAsState()
     var showErrorDialog by remember { mutableStateOf(false) }
     var errorMessage by remember { mutableStateOf("") }
@@ -68,7 +70,9 @@ fun CharactersScreen(
             ) {
                 LazyColumn(modifier = Modifier.fillMaxSize()) {
                     items(state.data.orEmpty()) { character ->
-                        CharacterDetails(character = character)
+                        CharacterDetails(character = character, onClick = {
+                            navController.navigate(Screen.CharacterDetails.passId(id = it ?: 1))
+                        })
                     }
                 }
 
